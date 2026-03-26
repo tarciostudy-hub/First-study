@@ -1,0 +1,30 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. BinaryTreeReversal.
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  ROOT               POINTER.
+       01  REVERSED-ROOT      POINTER.
+
+       PROCEDURE DIVISION.
+
+       MAIN-PROCEDURE.
+           ACCEPT ROOT.
+           PERFORM REVERSE-TREE USING ROOT.
+           DISPLAY "Reversed Binary Tree: " REVERSED-ROOT.
+           STOP RUN.
+
+       REVERSE-TREE USING BY REFERENCE NODE AS POINTER.
+           IF NODE = NULL THEN
+               EXIT.
+           END-IF.
+
+           PERFORM REVERSE-TREE USING NODE->LEFT.
+           PERFORM REVERSE-TREE USING NODE->RIGHT.
+
+           MOVE NODE->LEFT TO TEMP.
+           MOVE NODE->RIGHT TO NODE->LEFT.
+           MOVE TEMP TO NODE->RIGHT.
+           MOVE NODE TO REVERSED-ROOT.
+           EXIT.
+       END-REVERSE-TREE.
